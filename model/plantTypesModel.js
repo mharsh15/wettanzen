@@ -26,11 +26,47 @@ module.exports = new mongoose.Schema({
 		type: String,
 		require: true
 	},
-	website: {
-		type: String
-	},
+	infourls: [{
+		description: {
+			type: String,
+			require: true
+		},
+		url: {
+			type: String,
+			require: true
+		}
+	}],
+
+
 	description: {
 		type: String
+	},
+
+	diseaseurls: [{
+		description: {
+			type: String,
+			require: true
+		},
+		url: {
+			type: String,
+			require: true
+		}
 	}
+
+	],
+	flower: {
+		type: Boolean,
+		default: false
+	},
+	origin: {
+		type: String,
+		require: true
+
+	},
+	imgurl: {
+		type: String,
+		require: true
+	}
+
 
 })

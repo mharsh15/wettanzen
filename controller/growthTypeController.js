@@ -51,6 +51,7 @@ module.exports.updateIndividualPlantGrowth = async (req, rep) => {
 //delete plant growth
 module.exports.deleteIndividualPlantGrowth = async (req, rep) => {
 	const { id } = req.params
+
 	await DB.findByIdAndDelete(id)
 
 	rep.redirect(MAIN_ROUTE_NAME)

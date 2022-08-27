@@ -13,7 +13,8 @@ const TOTAL_PARTIAL_ROUTE = BASE_ROUTE + PARTIAL_ROUTE + "/"
 module.exports.getAllPlants = async (req, rep) => {
 
 	const types = await DB.find()
-	rep.render("plantType/allPlantTypes", { types, route: TOTAL_PARTIAL_ROUTE })
+	console.log(types)
+	rep.render("plantType/allPlantTypes", { types, route: BASE_ROUTE + "/" })
 }
 
 // render individual plant detail
@@ -21,7 +22,7 @@ module.exports.getIndividualPlants = async (req, rep) => {
 	const { id } = req.params
 	const type = await DB.findById(id).populate('reproduction').populate('growth')
 	//console.log(type)
-	rep.render("plantType/renderIndividualPlantType", { type })
+	rep.render("plantType/renderIndividualPlantType", { type, route: TOTAL_PARTIAL_ROUTE })
 }
 
 //render a page to add an individual plant type 
@@ -29,7 +30,7 @@ module.exports.renderAddIndividualPlantType = async (req, rep) => {
 
 	const reproductions = await ReproductionDB.find()
 	const growths = await GrowthDB.find()
-	console.log(growths)
+	//console.log(growths)
 	rep.render("plantType/addIndividualPlant", { growths, reproductions, route: TOTAL_PARTIAL_ROUTE })
 
 }
@@ -38,12 +39,30 @@ module.exports.renderAddIndividualPlantType = async (req, rep) => {
 module.exports.addIndividualPlantType = async (req, rep) => {
 	const { input } = req.body
 
-	if (input.genus != "" && input.species != "" && input.englishName != "" && input.growth != "" && input.reproduction != "") {
+	if (input.imgurl != "" && input.genus != "" && input.species != "" && input.englishname != "" && input.growth != "" && input.reproduction != "" && input.origin != "" && input.infourls != "" && input.diseaseurls != "" && input.flower != "") {
+		const infoURL = { ...input.infourls }
+		const diseaseURL = { ...input.diseaseUrls }
+		input.infourls = [infoURL]
+		input.diseaseurls = [diseaseURL]
 		const newType = new DB(input)
 		await newType.save()
 		return rep.redirect(BASE_ROUTE)
 	}
 
 	rep.redirect(TOTAL_PARTIAL_ROUTE)
+
+}
+
+module.exports.renderUpdateIndividualPlantType = async (req, rep) => {
+	const { id } = req.params
+
+	const type = await DB.findById(id)
+	if (type) {
+		const reproductions = await ReproductionDB.find()
+		const growths = await GrowthDB.find()
+		rep.render("plantType/updateIndividualPlant", { type, growths, reproductions, route: TOTAL_PARTIAL_ROUTE })
+	}
+
+
 
 }

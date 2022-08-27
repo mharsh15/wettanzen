@@ -3,24 +3,27 @@
 		<div class="col-md-6 offset-md-3">
 
 			<div class="card mx-3 my-3 px-3 py-3">
-				<h5 class="card-title">Add Plant Type</h5>
+				<h5 class="card-title">Update Plant Type</h5>
 
 				<form method="POST" action="<%= %>" class="card-body validated-form" style="display: contents;">
 					<!-- for genus -->
 
 					<label for="genus">Genus`</label>
-					<input id="genus" type="text" required name="input[genus]" class="mb-3" required>
+					<input id="genus" type="text" required name="input[genus]" class="mb-3" required
+						value="<%= type.genus %>">
 
 					<label for="species">Species</label>
-					<input id="species" class="mb-3" type="text" required name="input[species]" required>
+					<input id="species" class="mb-3" type="text" required name="input[species]" required
+						value="<%= type.species %> ">
 
 					<label for="imgurl">Add Image URL</label>
-					<input id="imgurl" class="mb-3" type="text" required name="input[imgurl]" required>
+					<input id="imgurl" class="mb-3" type="text" required name="input[imgurl]" required
+						value="<%= type.imageurl %> ">
 
 					<label for="type">Choose a plant Growth Type</label>
 					<select name="input[growth]" id="cars" class="mb-3" required>
 						<% for(let growth of growths) { %>
-							<option value="<%= growth.id %>">
+							<option value="<%= growth.id %>" <%=growth.id==type.growth ? "selected" :"" %> >
 								<%= growth.name %>
 							</option>
 							<% } %>
@@ -30,7 +33,7 @@
 
 					<select name="input[reproduction]" id="cars" class="mb-3" required>
 						<% for(let reprd of reproductions) { %>
-							<option value="<%= reprd.id %>">
+							<option value="<%= reprd.id %>" <%=reprd.id==type.reproduction ? "selected" :"" %>>
 								<%= reprd.name %>
 							</option>
 							<% } %>
