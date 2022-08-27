@@ -1,0 +1,4 @@
+{
+	"appService.defaultWebAppToDeploy": "/subscriptions/5effc7d3-1510-4bab-b150-9f4cd45a822a/microsoft.web/sites/subscriptions/5effc7d3-1510-4bab-b150-9f4cd45a822a/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/wettanzen",
+	"appService.deploySubpath": "."
+}

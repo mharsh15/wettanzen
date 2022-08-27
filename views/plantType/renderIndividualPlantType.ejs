@@ -1,0 +1,44 @@
+<% layout("boilerplate/boilerplate") %>
+	<div class="mx-3 my-3">
+
+		<div class="card">
+			<h5 class="card-header">
+				<%= type.genus %> - <%= type.species %>
+			</h5>
+			<div class="card-body">
+				<h5 class="card-title">Special title treatment</h5>
+				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+				<p>
+					<a class="btn btn-primary" data-bs-toggle="collapse" href="#reproduction" role="button"
+						aria-expanded="false" aria-controls="reproduction">
+						Reproduction Type: <%= type.reproduction.name %>
+					</a>
+
+
+				<div class="collapse" id="reproduction">
+					<div class="card card-body">
+						<%= type.reproduction.description %>
+					</div>
+					<div class="collapse" id="growth">
+						<div class="card card-body">
+							<%= type.growth.description %>
+						</div>
+					</div>
+					</p>
+					<p>
+						<a class="btn btn-primary" data-bs-toggle="collapse" href="#reproduction" role="button"
+							aria-expanded="false" aria-controls="growth">
+							Growth Type: <%= type.growth.name %>
+						</a>
+					</p>
+					<div class="collapse" id="reproduction">
+
+						<div class="collapse" id="growth">
+							<div class="card card-body">
+								<%= type.growth.description %>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>

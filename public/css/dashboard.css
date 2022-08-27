@@ -1,0 +1,15 @@
+#nav_bar {
+	text-align: center;
+	background-color: #9a7b4f;
+}
+
+#brand_name {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 2.5rem;
+	align-items: center;
+}
+
+#brand_image {
+	width: 50px;
+	align-items: center;
+}

@@ -1,0 +1,53 @@
+<% layout("./boilerplate/boilerplate") %>
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+
+			<div class="card mx-3 my-3 px-3 py-3">
+				<h5 class="card-title">Add Plant Type</h5>
+
+				<form method="POST" action="<%= %>" class="card-body validated-form" style="display: contents;">
+					<!-- for genus -->
+
+					<label for="genus">Genus`</label>
+					<input id="genus" type="text" required name="input[genus]" class="mb-3" required>
+
+					<label for="species">Species</label>
+					<input id="species" class="mb-3" type="text" required name="input[species]" required>
+
+					<label for="type">Choose a plant Growth Type</label>
+					<select name="input[growth]" id="cars" class="mb-3" required>
+						<% for(let growth of growths) { %>
+							<option value="<%= growth.id %>">
+								<%= growth.name %>
+							</option>
+							<% } %>
+					</select>
+
+					<label for="type">Choose a plant Reproduction Type</label>
+
+					<select name="input[reproduction]" id="cars" class="mb-3" required>
+						<% for(let reprd of reproductions) { %>
+							<option value="<%= reprd.id %>">
+								<%= reprd.name %>
+							</option>
+							<% } %>
+					</select>
+
+					<label for="species">English Name</label>
+					<input id="species" class="mb-3" type="text" required name="input[englishname]" required>
+
+					<label for="species">website for more information</label>
+					<input id="species" class="mb-3" type="text" required name="input[website]">
+
+					<label for="description">Description
+					</label>
+					<textarea type="text" class="mb3" name="input[description]" id="description"
+						id="description" value="" style="width:400px;height:100px"></textarea>
+
+
+
+					<button class="btn btn-primary mt-3">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
