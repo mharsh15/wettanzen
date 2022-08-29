@@ -66,7 +66,13 @@ module.exports = new mongoose.Schema({
 	imgurl: {
 		type: String,
 		require: true
+	},
+	maxage: {
+		type: Number,
+		require: true
+	},
+	maxheight: {
+		type: Number,
+		require: true
 	}
-
-
 })

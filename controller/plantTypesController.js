@@ -39,12 +39,15 @@ module.exports.renderAddIndividualPlantType = async (req, rep) => {
 module.exports.addIndividualPlantType = async (req, rep) => {
 	const { input } = req.body
 
-	if (input.imgurl != "" && input.genus != "" && input.species != "" && input.englishname != "" && input.growth != "" && input.reproduction != "" && input.origin != "" && input.infourls != "" && input.diseaseurls != "" && input.flower != "") {
+	if (input.imgurl != "" && input.genus != "" && input.species != "" && input.englishname != "" && input.growth != "" && input.reproduction != "" && input.origin != "" && input.infourls != "" && input.diseaseurls != "" && input.flower != "", input.maxage != "" & input.maxheight != "") {
+		input.genus = input.genus.toLowerCase()
+		input.species = input.species.toLowerCase()
 		const infoURL = { ...input.infourls }
 		const diseaseURL = { ...input.diseaseUrls }
 		input.infourls = [infoURL]
 		input.diseaseurls = [diseaseURL]
 		const newType = new DB(input)
+		console.log(input)
 		await newType.save()
 		return rep.redirect(BASE_ROUTE)
 	}
@@ -53,6 +56,7 @@ module.exports.addIndividualPlantType = async (req, rep) => {
 
 }
 
+//renders approproate 
 module.exports.renderUpdateIndividualPlantType = async (req, rep) => {
 	const { id } = req.params
 
@@ -60,8 +64,28 @@ module.exports.renderUpdateIndividualPlantType = async (req, rep) => {
 	if (type) {
 		const reproductions = await ReproductionDB.find()
 		const growths = await GrowthDB.find()
-		rep.render("plantType/updateIndividualPlant", { type, growths, reproductions, route: TOTAL_PARTIAL_ROUTE })
+		return rep.render("plantType/updateIndividualPlant", { type, growths, reproductions, route: TOTAL_PARTIAL_ROUTE })
 	}
+
+	rep.redirect(BASE_ROUTE)
+
+
+
+}
+
+//this handels PUT request to update plant type details
+module.exports.updateIndividualPlantType = async (req, rep) => {
+	const { id } = req.params
+	const { input } = req.body
+
+	if (id != "" && input.imgurl != "" && input.genus != "" && input.species != "" && input.englishname != "" && input.growth != "" && input.reproduction != "" && input.origin != "" && input.infourls != "" && input.diseaseurls != "" && input.flower != "", input.maxage != "" & input.maxheight != "") {
+		input.genus = input.genus.toLowerCase()
+		input.species = input.species.toLowerCase()
+		await DB.findByIdAndUpdate(id, input)
+		return rep.redirect(BASE_ROUTE)
+	}
+
+	rep.redirect(TOTAL_PARTIAL_ROUTE + "/" + id)
 
 
 

@@ -5,7 +5,8 @@
 			<div class="card mx-3 my-3 px-3 py-3">
 				<h5 class="card-title">Update Plant Type</h5>
 
-				<form method="POST" action="<%= %>" class="card-body validated-form" style="display: contents;">
+				<form method="POST" action="<%= route %><%= type.id %>?_method=PUT" class="card-body validated-form"
+					style="display: contents;">
 					<!-- for genus -->
 
 					<label for="genus">Genus`</label>
@@ -18,7 +19,7 @@
 
 					<label for="imgurl">Add Image URL</label>
 					<input id="imgurl" class="mb-3" type="text" required name="input[imgurl]" required
-						value="<%= type.imageurl %> ">
+						value="<%= type.imgurl %>">
 
 					<label for="type">Choose a plant Growth Type</label>
 					<select name="input[growth]" id="cars" class="mb-3" required>
@@ -41,32 +42,29 @@
 					<label for="description">Description
 					</label>
 					<textarea type="text" class="mb-3" name="input[description]" id="description"
-						id="description" value="" style="width:400px;height:100px"></textarea>
+						id="description" value="" style="width:400px;height:100px"><%= type.description %> </textarea>
 
 					<label for="species">English Name</label>
-					<input id="species" class="mb-3" type="text" required name="input[englishname]" required>
-
-					<label for="species">website link for more information</label>
-					<input id="species" class="mb-3" type="text" required name="input[infourls][url]">
-					<label for="species">website description on above url for more information</label>
-					<input id="species" class="mb-3" type="text" required name="input[infourls][description]">
-
-
-
-					<label for="diseasewebsite">Add Website link for diseases if any</label>
-					<input name="input[diseaseurls][url]" type="text" id="diseasewebsite" class="mb-3">
-
-					<label for="diseasewebsite">Add Website description for above url on diseases if any</label>
-					<input name="input[diseaseurls][description]" type="text" id="diseasewebsite" class="mb-3">
+					<input id="species" class="mb-3" type="text" required name="input[englishname]" required
+						value="<%= type.englishname %> ">
 
 					<label for="flower">Does Plant produce flowers</label>
 					<select name="input[flower]" id="flower" class="mb-3" required>
-						<option value="true">Yes</option>
-						<option value="false">No</option>
+						<option value="true" <%=true===type.flower? "selected" :"" %> >Yes</option>
+						<option value="false" <%=false===type.flower? "selected" :"" %>>No</option>
 					</select>
 
 					<label for="origin">Which continent/region this plant variety belong to?</label>
-					<input name="input[origin]" type="text" id="origin" class="mb-3">
+					<input name="input[origin]" type="text" id="origin" class="mb-3" value="<%= type.origin %>">
+
+					<label for="origin">What is the Max Age of this plant type(in years)</label>
+					<input name="input[maxage]" type="number" id="origin" class="mb-3" required
+						value="<%= type.maxage %>">
+
+					<label for="origin">What is the Max height of this plant type(in meters)</label>
+					<input name="input[maxheight]" type="number" id="origin" class="mb-3" required
+						value="<%= type.maxheight %>">
+
 
 					<button class="btn btn-primary mt-3">Submit</button>
 				</form>

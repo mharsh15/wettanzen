@@ -11,15 +11,18 @@ const controller = require("../controller/plantTypesController")
 
 //displays all plant by types - firste and in second it renders individual plant type
 router.get("/", catchAsync(controller.getAllPlants))
-	.get("/:id", controller.getIndividualPlants)
+
 
 
 //renders form to add a new plant type and adds a new plant type
 router
 	.get(PARTIAL_ROUTE, catchAsync(controller.renderAddIndividualPlantType))
+	.get("/:id", controller.getIndividualPlants)
 	.post(PARTIAL_ROUTE, catchAsync(controller.addIndividualPlantType))
 
-router.get(PARTIAL_ROUTE + "/:id", controller.renderUpdateIndividualPlantType)
-
+//handels individua; plant route
+router
+	.get(PARTIAL_ROUTE + "/:id", catchAsync(controller.renderUpdateIndividualPlantType))
+	.put(PARTIAL_ROUTE + "/:id", catchAsync(controller.updateIndividualPlantType))
 
 module.exports = router

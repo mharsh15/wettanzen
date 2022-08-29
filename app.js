@@ -52,13 +52,17 @@ app.use(routes.plantSunlightRequirementRoute, sunlightTypeRoutes)
 app.use(routes.plantTypesRoute, plantTypesRoute)
 ///route to edit plant growth by reproduction type
 
-// app.use((err, req, rep, next) => {
-// 	if (err) {
-// 		rep.send(err)
-// 	}
+app.use((err, req, rep, next) => {
+	if (err) {
+		rep.statusCode(404).send(err)
+	}
 
-// })
+})
 
+app.get("*", (req, rep) => {
+	rep.statuscode(400).send("Seems its not page you are looking for")
+
+})
 app.listen(port, () => {
 	console.log("Port 3020 up and running")
 
