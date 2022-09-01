@@ -1,0 +1,17 @@
+.card-image {
+
+	width: 200px;
+	height: 200px
+}
+
+
+
+
+@media (min-width:350px) {
+	.all-card-div {
+		display: flex;
+		width: start;
+		flex-wrap: wrap;
+	}
+
+}

@@ -1,6 +1,22 @@
-<% for (type of types) {%>
-	<a href="<%= route %><%= type.id %>  ">
-		<%= type.genus %>
-	</a>
+<% layout("boilerplate/boilerplate") %>
 
-	<% } %>
+	<div class="all-card-div">
+		<% for (type of types) {%>
+			<div class="card card-view ">
+				<img class="rounded float-star card-image" src=" <%=type.imgurl %>" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">
+						<%= type.englishname %>
+					</h5>
+					<p class="card-text">
+						<a href="<%= route %><%= type.id %>">
+							<%= type.genus %>-<%= type.species %>
+						</a>
+
+					</p>
+					<a href="<%= route %><%= type.id %>" class="btn btn-primary">Read More</a>
+				</div>
+			</div>
+
+			<% } %>
+	</div>

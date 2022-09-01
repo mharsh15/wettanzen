@@ -60,7 +60,7 @@ app.use((err, req, rep, next) => {
 })
 
 app.get("*", (req, rep) => {
-	rep.statuscode(400).send("Seems its not page you are looking for")
+	rep.sendStatus(400).send("Seems its not page you are looking for")
 
 })
 app.listen(port, () => {

@@ -15,7 +15,7 @@
 
 					<label for="species">Species</label>
 					<input id="species" class="mb-3" type="text" required name="input[species]" required
-						value="<%= type.species %> ">
+						value="<%= type.species %>">
 
 					<label for="imgurl">Add Image URL</label>
 					<input id="imgurl" class="mb-3" type="text" required name="input[imgurl]" required
@@ -62,7 +62,7 @@
 						value="<%= type.maxage %>">
 
 					<label for="origin">What is the Max height of this plant type(in meters)</label>
-					<input name="input[maxheight]" type="number" id="origin" class="mb-3" required
+					<input name="input[maxheight]" type="number" id="origin" step="0.01" class="mb-3" required
 						value="<%= type.maxheight %>">
 
 
