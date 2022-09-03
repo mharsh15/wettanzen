@@ -7,7 +7,8 @@ const GrowthDB = require("../model/model").growthTypeModel
 const BASE_ROUTE = require("../model/routeListingModel").plantTypesRoute
 const PARTIAL_ROUTE = require("../model/routeListingModel").type
 const TOTAL_PARTIAL_ROUTE = BASE_ROUTE + PARTIAL_ROUTE + "/"
-
+const DISEASE_ROUTE = require("../model/routeListingModel").urlsDisease
+const KNOW_MORE_ROUTE = require("../model/routeListingModel").urlsKnowMore
 
 //main route where all plants types are displayed
 module.exports.getAllPlants = async (req, rep) => {
@@ -22,7 +23,7 @@ module.exports.getIndividualPlants = async (req, rep) => {
 	const { id } = req.params
 	const type = await DB.findById(id).populate('reproduction').populate('growth')
 	//console.log(type)
-	rep.render("plantType/renderIndividualPlantType", { type, route: TOTAL_PARTIAL_ROUTE })
+	rep.render("plantType/renderIndividualPlantType", { type, route: TOTAL_PARTIAL_ROUTE, diseaseRoute: DISEASE_ROUTE, knowMoreRoute: KNOW_MORE_ROUTE })
 }
 
 //render a page to add an individual plant type 
@@ -43,7 +44,7 @@ module.exports.addIndividualPlantType = async (req, rep) => {
 		input.genus = input.genus.toLowerCase()
 		input.species = input.species.toLowerCase()
 		const infoURL = { ...input.infourls }
-		const diseaseURL = { ...input.diseaseUrls }
+		const diseaseURL = { ...input.diseaseurls }
 		input.infourls = [infoURL]
 		input.diseaseurls = [diseaseURL]
 		const newType = new DB(input)
@@ -88,5 +89,13 @@ module.exports.updateIndividualPlantType = async (req, rep) => {
 	rep.redirect(TOTAL_PARTIAL_ROUTE + "/" + id)
 
 
+
+}
+
+//delete plant type
+module.exports.deleteIndividualPlant = async (req, rep) => {
+	const { id } = req.params
+	await DB.findByIdAndDelete(id)
+	rep.redirect(BASE_ROUTE)
 
 }

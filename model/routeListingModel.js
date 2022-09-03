@@ -5,5 +5,7 @@ module.exports = {
 	plantReproductionRoute: "/plantreproduction",
 	plantSunlightRequirementRoute: "/plantsunlight",
 	plantTypesRoute: "/planttypes",
-	type: "/type"
+	type: "/type",
+	urlsKnowMore: "/knowmoreurls",
+	urlsDisease: "/diseaseurls"
 }

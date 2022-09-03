@@ -24,5 +24,6 @@ router
 router
 	.get(PARTIAL_ROUTE + "/:id", catchAsync(controller.renderUpdateIndividualPlantType))
 	.put(PARTIAL_ROUTE + "/:id", catchAsync(controller.updateIndividualPlantType))
+	.delete(PARTIAL_ROUTE + "/:id", catchAsync(controller.deleteIndividualPlant))
 
 module.exports = router
