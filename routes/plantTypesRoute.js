@@ -6,6 +6,8 @@ const catchAsync = require("../error/error")
 const BASE_ROUTE = require("../model/routeListingModel").plantTypesRoute
 const PARTIAL_ROUTE = require("../model/routeListingModel").type
 const TOTAL_PARTIAL_ROUTE = BASE_ROUTE + PARTIAL_ROUTE + "/"
+const DISEASE_ROUTE = require("../model/routeListingModel").urlsDisease
+const KNOW_MORE_ROUTE = require("../model/routeListingModel").urlsKnowMore
 
 const controller = require("../controller/plantTypesController")
 
@@ -20,10 +22,20 @@ router
 	.get("/:id", controller.getIndividualPlants)
 	.post(PARTIAL_ROUTE, catchAsync(controller.addIndividualPlantType))
 
-//handels individua; plant route
+
+//handels individual; plant route
 router
 	.get(PARTIAL_ROUTE + "/:id", catchAsync(controller.renderUpdateIndividualPlantType))
 	.put(PARTIAL_ROUTE + "/:id", catchAsync(controller.updateIndividualPlantType))
 	.delete(PARTIAL_ROUTE + "/:id", catchAsync(controller.deleteIndividualPlant))
+
+//handels info url route of individual plants
+router
+	.get(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE, catchAsync(controller.renderAllKnowMorePlants))
+	.post(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE, catchAsync(controller.addIndividualKnowMorePlants))
+	.put(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE + "/:postID", catchAsync(controller.updateIndividualKnowMorePlants))
+	.delete(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE + "/:postID", catchAsync(controller.deleteIndividualKnowMorePlants))
+
+//handels individual plant routes disease type
 
 module.exports = router

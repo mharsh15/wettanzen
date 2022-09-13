@@ -1,0 +1,114 @@
+<% layout("./boilerplate/boilerplate") %>
+	<div class="row mx-3 my-3">
+		<div class="card mb-3">
+
+			<div class="col-md-6 offset-md-3">
+				<h4 class="card-title">Add a new Information URL</h4>
+				<form method="post" action="<%= route %> ">
+					<div class="mb-3">
+						<label for="name" class="form-label">Website url</label>
+						<input type="name" class="form-control" name="input[url]" id="exampleFormControlInput1"
+							placeholder="add website link">
+					</div>
+					<div class="mb-3">
+						<label for="exampleFormControlTextarea1" class="form-label">Website Information</label>
+						<textarea class="form-control" name="input[description]" id="exampleFormControlTextarea1"
+							rows="3"></textarea>
+					</div>
+					<button class="btn btn-primary mb-3">Submit</button>
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="row mx-3 my-3">
+		<div class="all-card-div">
+			<% for(let info of type.infourls) {%>
+				<% let x=type.infourls.indexOf(info) %>
+					<div class="card px-3 py-3 mb-3">
+						<h6 class="card-header mb-3" id="<%= x %> ">
+							<%= info.description%>
+						</h6>
+						<div class="url mb-3" id="<%= x %> ">
+							<%= info.url %>
+						</div>
+						<div class="mb-3" style="display:flex">
+							<button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal"
+								data-bs-target="#updateModal" data-bs-whatever=<%=x %> >Edit</button>
+							<form method="POST" action="<%= route %>/<%= x %>?_method=DELETE">
+								<Button class="btn btn-danger">Delete</Button>
+							</form>
+						</div>
+
+					</div>
+
+					<% } %>
+		</div>
+
+		<!-- Modal for displaying dropdown on update -->
+
+		<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Update URL</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<form id="update-form" method="POST" action="">
+						<div class="modal-body">
+							<div class="mb-3">
+								<label for="recipient-name" class="col-form-label">URL</label>
+								<input type="text" class="form-control" id="modal-url" name="input[url]">
+							</div>
+							<div class="mb-3">
+								<label for="message-text" class="col-form-label">Description</label>
+								<textarea name="input[description]" class="form-control"
+									id="modal-description"></textarea>
+							</div>
+
+						</div>
+						<div class="modal-footer mb-3">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+							<button id="update-button" type="submit" class="btn btn-primary">Edit</button>
+					</form>
+
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- SCRIPT -->
+	<script>
+		const preURL = "<%= route %>"
+		var modalUpdateForm = document.getElementById('updateModal')
+		modalUpdateForm.addEventListener('show.bs.modal', function (event) {
+			// Button that triggered the modal
+			let button = event.relatedTarget
+			// Extract info from data-bs-* attributes
+			let recipient = button.getAttribute('data-bs-whatever')
+			//console.log(recipient)
+
+			// get data from actual docs
+			let titles = document.getElementsByClassName("card-header")
+			let urls = document.getElementsByClassName("url")
+
+			//for fetching data
+			let title = titles[recipient].innerText
+			let url = urls[recipient].innerText
+
+			//for updating form url
+			let form = document.getElementById("update-form")
+			// Update the modal's content.
+			let modalURL = modalUpdateForm.querySelector('#modal-url')
+			let modalDescription = modalUpdateForm.querySelector("#modal-description")
+			const fullURL = `${preURL}/${recipient}?_method=PUT`
+
+			modalURL.value = url
+			modalDescription.innerHTML = title
+			form.action = fullURL
+
+		})
+	</script>

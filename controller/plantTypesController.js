@@ -48,7 +48,7 @@ module.exports.addIndividualPlantType = async (req, rep) => {
 		input.infourls = [infoURL]
 		input.diseaseurls = [diseaseURL]
 		const newType = new DB(input)
-		console.log(input)
+		//console.log(input)
 		await newType.save()
 		return rep.redirect(BASE_ROUTE)
 	}
@@ -97,5 +97,65 @@ module.exports.deleteIndividualPlant = async (req, rep) => {
 	const { id } = req.params
 	await DB.findByIdAndDelete(id)
 	rep.redirect(BASE_ROUTE)
+
+}
+
+//******HANDLES ALL PLANT KNOW MORE URLS*******//
+//renders all urls for plant info along with form to submit
+module.exports.renderAllKnowMorePlants = async (req, rep) => {
+	const { id } = req.params
+	const type = await DB.findById(id)
+	console.log(type)
+	rep.render("plantType/plantTypesKnowMoreDash", { type, route: `${TOTAL_PARTIAL_ROUTE}${id}${KNOW_MORE_ROUTE}` })
+
+
+}
+
+//adds individual urls
+module.exports.addIndividualKnowMorePlants = async (req, rep) => {
+
+	const { id } = req.params
+	const { input } = req.body
+	const type = await DB.findById(id)
+	if (input.url != "" && input.description != "") {
+		type.infourls.push(input)
+		//console.log(...input)
+		await type.save()
+		return rep.redirect(`${TOTAL_PARTIAL_ROUTE}${id}${KNOW_MORE_ROUTE}`)
+	}
+
+	rep.send(400)
+
+}
+
+//update individual know more plant urls
+module.exports.updateIndividualKnowMorePlants = async (req, rep) => {
+	const { id } = req.params
+	const { postID } = req.params
+	const { input } = req.body
+	console.log(input)
+	if (postID != "" && input.url != "" && input.description) {
+		const type = await DB.findById(id)
+		type.infourls[postID] = input
+		await type.save()
+		return rep.redirect(TOTAL_PARTIAL_ROUTE + id + KNOW_MORE_ROUTE)
+	}
+
+	rep.send(400)
+
+
+}
+
+//deletes individual urls
+module.exports.deleteIndividualKnowMorePlants = async (req, rep) => {
+	const { id } = req.params
+	const { postID } = req.params
+
+	const type = await DB.findById(id)
+	type.infourls.splice(postID, 1)
+	await type.save()
+	console.log(postID)
+	rep.redirect(TOTAL_PARTIAL_ROUTE + id + KNOW_MORE_ROUTE)
+
 
 }
