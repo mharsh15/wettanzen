@@ -7,5 +7,6 @@ module.exports = {
 	plantTypesRoute: "/planttypes",
 	type: "/type",
 	urlsKnowMore: "/knowmoreurls",
-	urlsDisease: "/diseaseurls"
+	urlsDisease: "/diseaseurls",
+	mobileSession: "/mobile"
 }

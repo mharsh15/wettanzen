@@ -8,6 +8,7 @@ const ejsMate = require('ejs-mate')
 
 
 
+
 const app = express()
 const port = process.env.port || 8080
 if (process.env.NODE_ENV !== "production") {
@@ -18,7 +19,9 @@ if (process.env.NODE_ENV !== "production") {
 const methodOverride = require("method-override")
 app.use(methodOverride("_method"))
 app.use(express.urlencoded({ extended: true }))
-
+app.use(express.json())
+const passport = require("passport")
+require("./auth/passportJWTAuth")
 ///importing mongoose - after ENV FILE
 const mongooseInit = require("./mongoose/mongooseProd")
 
@@ -29,7 +32,7 @@ const growthRoutes = require("./routes/growthTypeRoute")
 const reproductionRoutes = require("./routes/reproductionTypeRoute")
 const sunlightTypeRoutes = require("./routes/sunlightTypeRoute")
 const plantTypesRoute = require("./routes/plantTypesRoute")
-
+const userAuthMobileRoute = require("./routes/userAuthMobileRoute")
 
 //setting views
 //setting ejs
@@ -50,6 +53,7 @@ app.use(routes.plantGrowthMainRoute, growthRoutes)
 app.use(routes.plantReproductionRoute, reproductionRoutes)
 app.use(routes.plantSunlightRequirementRoute, sunlightTypeRoutes)
 app.use(routes.plantTypesRoute, plantTypesRoute)
+app.use(routes.mobileSession, userAuthMobileRoute)
 ///route to edit plant growth by reproduction type
 
 // app.use((err, req, rep, next) => {

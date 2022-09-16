@@ -4,7 +4,7 @@ module.exports = {
 	sunlightRequired: "sunlightrequired",
 	plantTypes: "planttypes",
 	userplant: "userplant",
-	userplantnotes: "userplantnotes"
-
+	userplantnotes: "userplantnotes",
+	users: "alluserslist"
 
 }
