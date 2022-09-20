@@ -19,7 +19,7 @@ module.exports.loginMobileUser = async (req, rep, next) => {
 			req.login(user, { session: false }, async (error) => {
 				if (error) return next(error)
 				const body = { id: user.id };
-				const token = jwt.sign({ user: body }, 'when_wettanzen_flies');
+				const token = jwt.sign({ user: body }, process.env.JWT_SECRET_KEY);
 				return rep.json({ token, name: user.name, email: user.email });
 			})
 

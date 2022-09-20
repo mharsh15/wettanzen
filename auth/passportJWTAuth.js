@@ -55,7 +55,7 @@ passport.use(keywords.login,
 
 ///for jwt strategy, to check and pull data from jwt(userID)
 passport.use(new PassportJWTStrategy({
-	secretOrKey: 'when_wettanzen_flies',
+	secretOrKey: process.env.JWT_SECRET_KEY,
 	jwtFromRequest: ExtractJWTFromPassport.fromUrlQueryParameter('secret_token')
 },
 	async (token, done) => {
