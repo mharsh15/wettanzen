@@ -8,6 +8,10 @@ const SUB_ROUTE_NAME = "/plantgrowthtypes/type/"
 
 const growthTypeController = require("../controller/growthTypeController")
 const catchAsync = require("../error/error")
+
+//middleware
+//checks whether it is an admin or not
+const isAdmin = require("../middleware/middleware").isAnAdmin
 ///ALL ROUTES
 router
 	.get("/", async (req, rep) => {
@@ -18,16 +22,16 @@ router
 	})
 /////ROUTES for creating and adding a new plant growth
 router
-	.get("/type", growthTypeController.displayPlantTypeGrowth)
-	.post("/type", catchAsync(growthTypeController.createNewPlantTypeGrowthPostRequest))
+	.get("/type", isAdmin, growthTypeController.displayPlantTypeGrowth)
+	.post("/type", isAdmin, catchAsync(growthTypeController.createNewPlantTypeGrowthPostRequest))
 
 
 // Routes dealing with individual plant growth
-router.get("/type/:id", catchAsync(growthTypeController.displayIndividualPlantGrowth))
+router.get("/type/:id", isAdmin, catchAsync(growthTypeController.displayIndividualPlantGrowth))
 	//update a plant name
-	.put("/type/:id", catchAsync(growthTypeController.updateIndividualPlantGrowth))
+	.put("/type/:id", isAdmin, catchAsync(growthTypeController.updateIndividualPlantGrowth))
 
 	//delete a plant name
-	.delete("/type/:id", catchAsync(growthTypeController.deleteIndividualPlantGrowth))
+	.delete("/type/:id", isAdmin, catchAsync(growthTypeController.deleteIndividualPlantGrowth))
 
 module.exports = router

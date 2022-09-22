@@ -1,5 +1,5 @@
 const express = require("express")
-const router = express.Router()
+const router = express.Router
 const passport = require("passport")
 const passportKeywords = require("../model/passportKeywordModel")
 
@@ -10,20 +10,20 @@ router.get("/login", (req, rep) => {
 
 })
 
-router.post("/web/login", passport.authenticate(passportKeywords.login, { failureRedirect: '/login' }), (req, rep) => {
+router.post("/login", passport.authenticate(passportKeywords.login, { failureRedirect: '/login' }), (req, rep) => {
+	passport.serializeUser((user, done) => {
+		done(null, {
+			id: user.id,
+			type: user.type
+		})
+	})
 	passport.initialize()
-	passport.session()
-	console.log(req.session)
-
-	rep.redirect("/userdash")
+	rep.redirect("userdash")
 })
 
 router.get("/userdash", (req, rep) => {
-
-	console.log(req.user)
-
 	if (req.isAuthenticated()) {
-		return rep.send(req.user)
+		return rep.send(req.user``)
 	}
 	rep.redirect("/login")
 

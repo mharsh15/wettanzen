@@ -11,30 +11,31 @@ const KNOW_MORE_ROUTE = require("../model/routeListingModel").urlsKnowMore
 
 const controller = require("../controller/plantTypesController")
 
+//checks whether it is an admin or not
+const isAdmin = require("../middleware/middleware").isAnAdmin
+
 //displays all plant by types - firste and in second it renders individual plant type
 router.get("/", catchAsync(controller.getAllPlants))
 
-
-
 //renders form to add a new plant type and adds a new plant type
 router
-	.get(PARTIAL_ROUTE, catchAsync(controller.renderAddIndividualPlantType))
+	.get(PARTIAL_ROUTE, isAdmin, catchAsync(controller.renderAddIndividualPlantType))
 	.get("/:id", controller.getIndividualPlants)
-	.post(PARTIAL_ROUTE, catchAsync(controller.addIndividualPlantType))
+	.post(PARTIAL_ROUTE, isAdmin, catchAsync(controller.addIndividualPlantType))
 
 
 //handels individual; plant route
 router
-	.get(PARTIAL_ROUTE + "/:id", catchAsync(controller.renderUpdateIndividualPlantType))
-	.put(PARTIAL_ROUTE + "/:id", catchAsync(controller.updateIndividualPlantType))
-	.delete(PARTIAL_ROUTE + "/:id", catchAsync(controller.deleteIndividualPlant))
+	.get(PARTIAL_ROUTE + "/:id", isAdmin, catchAsync(controller.renderUpdateIndividualPlantType))
+	.put(PARTIAL_ROUTE + "/:id", isAdmin, catchAsync(controller.updateIndividualPlantType))
+	.delete(PARTIAL_ROUTE + "/:id", isAdmin, catchAsync(controller.deleteIndividualPlant))
 
 //handels info url route of individual plants
 router
-	.get(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE, catchAsync(controller.renderAllKnowMorePlants))
-	.post(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE, catchAsync(controller.addIndividualKnowMorePlants))
-	.put(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE + "/:postID", catchAsync(controller.updateIndividualKnowMorePlants))
-	.delete(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE + "/:postID", catchAsync(controller.deleteIndividualKnowMorePlants))
+	.get(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE, isAdmin, catchAsync(controller.renderAllKnowMorePlants))
+	.post(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE, isAdmin, catchAsync(controller.addIndividualKnowMorePlants))
+	.put(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE + "/:postID", isAdmin, catchAsync(controller.updateIndividualKnowMorePlants))
+	.delete(PARTIAL_ROUTE + "/:id" + KNOW_MORE_ROUTE + "/:postID", isAdmin, catchAsync(controller.deleteIndividualKnowMorePlants))
 
 //handels individual plant routes disease type
 

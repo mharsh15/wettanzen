@@ -7,6 +7,10 @@ const PARTIAL_ROUTE = require("../model/routeListingModel").type
 const TOTAL_PARTIAL_ROUTE = BASE_ROUTE + PARTIAL_ROUTE + "/"
 const catchAsync = require("../error/error")
 
+//checks whether it is an admin or not
+const isAdmin = require("../middleware/middleware").isAnAdmin
+
+
 router.get("/", catchAsync(controller.showAllSunlightRequirement))
 
 

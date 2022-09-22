@@ -14,7 +14,7 @@ const KNOW_MORE_ROUTE = require("../model/routeListingModel").urlsKnowMore
 module.exports.getAllPlants = async (req, rep) => {
 
 	const types = await DB.find()
-	console.log(types)
+	//console.log(types)
 	rep.render("plantType/allPlantTypes", { types, route: BASE_ROUTE + "/" })
 }
 
@@ -133,7 +133,7 @@ module.exports.updateIndividualKnowMorePlants = async (req, rep) => {
 	const { id } = req.params
 	const { postID } = req.params
 	const { input } = req.body
-	console.log(input)
+	//console.log(input)
 	if (postID != "" && input.url != "" && input.description) {
 		const type = await DB.findById(id)
 		type.infourls[postID] = input
@@ -154,7 +154,7 @@ module.exports.deleteIndividualKnowMorePlants = async (req, rep) => {
 	const type = await DB.findById(id)
 	type.infourls.splice(postID, 1)
 	await type.save()
-	console.log(postID)
+	//console.log(postID)
 	rep.redirect(TOTAL_PARTIAL_ROUTE + id + KNOW_MORE_ROUTE)
 
 

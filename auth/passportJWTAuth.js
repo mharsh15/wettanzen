@@ -69,4 +69,29 @@ passport.use(new PassportJWTStrategy({
 	}
 
 ))
+//for serializing user - passport session
+passport.serializeUser((user, done) => {
+	console.log(user)
+	// done(null, {
+	// 	id: user.id,
+	// 	type: user.userType
+	// })
 
+	const userDetails = {
+		id: user.id,
+		type: user.userType
+	}
+	done(null, userDetails)
+})
+
+//non jwt auth for de serializing user
+passport.deserializeUser(function (userDetails, done) {
+
+
+	//DB.findById(userDetails.id, function (err, usr) {
+	process.nextTick(function () {
+		return done(null, userDetails);
+	});
+	//done(null, userDetails);
+	//});
+});
