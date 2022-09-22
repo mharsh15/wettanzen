@@ -61,7 +61,7 @@ app.use((req, rep, next) => {
 	rep.locals.userEmail = null
 	if (req.isAuthenticated()) {
 		rep.locals.isLoggedIn = true
-		rep.locals.userEmail = req.user.email
+		rep.locals.email = req.user.email
 		if (req.user.type >= userTypeModel.admin.type) {
 			rep.locals.isAdmin = true
 
@@ -102,12 +102,12 @@ app.use(routes.mobileSession, userAuthMobileRoute)
 app.use("/", userAuthWebRoute)
 ///route to edit plant growth by reproduction type
 
-app.use((err, req, rep, next) => {
-	if (err) {
-		rep.status(404).send(err)
-	}
+// app.use((err, req, rep, next) => {
+// 	if (err) {
+// 		rep.status(404).send(err)
+// 	}
 
-})
+// })
 
 // app.get("*", (req, rep) => {
 // 	rep.statusCode(400).send("Seems its not page you are looking for")
